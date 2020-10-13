@@ -1,3 +1,7 @@
 module.exports = {
-    baseUrl : "https://www.amazon.com"
+    
+        baseUrl: "https://www.amazon.com",
+        mainCatUrlInitial: "https://www.amazon.com/s/ref=nb_sb_noss?url=",
+        mainCatUrlLast: "&field-keywords="
+    
 }
