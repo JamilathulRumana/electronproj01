@@ -6,7 +6,7 @@ module.exports.fetchMainCategories = async (url,callback) => {
     const page = await browser.newPage();
     await page.goto(url, {waitUntil : 'domcontentloaded'});
     await page.addScriptTag({url : 'https://code.jquery.com/jquery-3.2.1.min.js'});
-    const result = await page.evaluate(() => 
+    const result = await page.evaluate((common) => 
     {
         var data = {
             categories: [] 
@@ -14,12 +14,13 @@ module.exports.fetchMainCategories = async (url,callback) => {
 
         $('.nav-search-dropdown').children().each(function(){
             let obj = {
-                text: $(this).text()
+                text: $(this).text(),
+                link: common.mainCatUrlInitial + ($(this).attr('value')).replace('=','%3D') + common.mainCatUrlLast
             }
             data.categories.push(obj);
         })
         return data;
-    })
+    },common)
     await page.close();
     await browser.close();
     callback(result,true);
